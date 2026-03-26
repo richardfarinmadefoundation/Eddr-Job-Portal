@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDDR Job Portal</title>
+<button onclick="logout()" style="width:150px; float:right; background:red;">Sign Out</button>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
+
+body {
+    background: url('backgroundPic.jpg') no-repeat center center/cover;
+    height:100vh;
+    color:rgb(255, 255, 255);
+    position: relative;
+}
+
+.overlay {
+    background: rgba(215, 200, 215, 0.75);
+    height:100%;
+    padding:20px;
+}
+
+.hidden { display:none; }
+
+.container { max-width:900px; margin:auto; }
+
+h1 { text-align:center; margin-bottom:20px; color: black;}
+
+/* LOGIN */
+.login-box {
+    max-width:350px;
+    margin:100px auto;
+    background:rgba(255,255,255,0.1);
+    padding:20px;
+    border-radius:10px;
+}
+
+input {
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:5px;
+}
+
+button {
+    padding:12px;
+    width:100%;
+    border:none;
+    background:orange;
+    cursor:pointer;
+    border-radius:5px;
+    font-size:16px;
+}
+
+button:hover { background:darkorange; }
+
+.category { margin:15px 0; }
+
+.main-btn {
+    width:100%;
+    padding:15px;
+    font-size:18px;
+    text-align:left;
+}
+
+.sub-menu { display:none; padding:10px; }
+
+.sub-menu a {
+    display:block;
+    background:white;
+    color:black;
+    margin:5px 0;
+    padding:10px;
+    text-decoration:none;
+    border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-box">
+    <h2>Student Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+    <h1>EDDR Job Portal</h1>
+
+    <div class="container">
+
+        <div class="category">
+            <button class="main-btn" onclick="toggleMenu('electrician')">⚡ Electrician Jobs</button>
+            <div id="electrician" class="sub-menu">
+                <a href="https://www.mortenson.com/careers/energy-storage-group/union-energy-storage-electrical-apprentice-edsan-2b-19983">Apply - Apprentice Electrician Job 1</a>
+                <a href="https://sjobs.brassring.com/TGnewUI/Search/home/Home?partnerid=25307&siteid=5238#jobDetails=3335556_5238">Apply - Apprentice Electrician Job 2</a>
+                <a href="https://recruiting.paylocity.com/Recruiting/Jobs/Apply/3725389">Apply - Apprentice Electrician Job 3</a>
+                <a href="#">Apply - Apprentice Electrician Job 4</a>
+                <a href="#">Apply - Apprentice Electrician Job 5</a>
+                <a href="#">Apply - Apprentice Electrician Job 6</a>
+                <a href="#">Apply - Apprentice Electrician Job 7</a>
+                <a href="#">Apply - Apprentice Electrician Job 8</a>
+                <a href="#">Apply - Apprentice Electrician Job 9</a>
+                <a href="#">Apply - Apprentice Electrician Job 10</a>
+            </div>
+        </div>
+
+        <div class="category">
+            <button class="main-btn" onclick="toggleMenu('carpentry')">🪚 Carpentry Jobs</button>
+            <div id="carpentry" class="sub-menu">
+              <a href="#">Apply - Carpentry Job 1</a>
+                <a href="#">Apply - Carpentry Job 2</a>
+                <a href="#">Apply - Carpentry Job 3</a>
+                <a href="#">Apply - Carpentry Job 4</a>
+                <a href="#">Apply - Carpentry Job 5</a>
+                <a href="#">Apply - Carpentry Job 6</a>
+                <a href="#">Apply - Carpentry Job 7</a>
+                <a href="#">Apply - Carpentry Job 8</a>
+                <a href="#">Apply - Carpentry Job 9</a>
+                <a href="#">Apply - Carpentry Job 10</a>
+            </div>
+        </div>
+
+        <div class="category">
+            <button class="main-btn" onclick="toggleMenu('hvac')">❄ HVAC Jobs</button>
+            <div id="hvac" class="sub-menu">
+            
+                <a href="#">Apply - HVAC Job 1</a>
+                <a href="#">Apply - HVAC Job 2</a>
+                <a href="#">Apply - HVAC Job 3</a>
+                <a href="#">Apply - HVAC Job 4</a>
+                <a href="#">Apply - HVAC Job 5</a>
+                <a href="#">Apply - HVAC Job 6</a>
+                <a href="#">Apply - HVAC Job 7</a>
+                <a href="#">Apply - HVAC Job 8</a>
+                <a href="#">Apply - HVAC Job 9</a>
+                <a href="#">Apply - HVAC Job 10</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+<script>
+// CHECK LOGIN STATE ON LOAD
+window.onload = function() {
+    if(localStorage.getItem("loggedIn") === "true") {
+        showApp();
+    }
+};
+
+// LOGIN FUNCTION
+function login() {
+    let user = document.getElementById('username').value;
+    let pass = document.getElementById('password').value;
+
+    if(user === "student" && pass === "1234") {
+        localStorage.setItem("loggedIn", "true"); // SAVE LOGIN
+        showApp();
+    } else {
+        alert("Invalid login");
+    }
+}
+
+// SHOW APP FUNCTION
+function showApp() {
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+}
+
+// SIGN OUT FUNCTION
+function logout() {
+    localStorage.removeItem("loggedIn"); // CLEAR LOGIN
+    document.getElementById('app').classList.add('hidden');
+    document.getElementById('loginPage').classList.remove('hidden');
+}
+
+// TOGGLE MENU
+function toggleMenu(id) {
+    let menu = document.getElementById(id);
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>
