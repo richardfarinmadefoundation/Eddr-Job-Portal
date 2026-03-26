@@ -152,15 +152,27 @@ button:hover { background:darkorange; }
 
 <script>
 // CHECK LOGIN STATE ON LOAD
-window.onload = function() {
-    if(localStorage.getItem("loggedIn") === "true") {
-        showApp();
+// window.onload = function() {
+//     if(localStorage.getItem("loggedIn") === "true") {
+//         showApp();
+//     }
+// };
+// Make Enter key trigger login
+document.getElementById('username').addEventListener('keydown', function(event) {
+    if(event.key === 'Enter') {
+        login(); // call your login function
     }
-};
+});
+
+document.getElementById('password').addEventListener('keydown', function(event) {
+    if(event.key === 'Enter') {
+        login(); // call your login function
+    }
+});
 
 // LOGIN FUNCTION
 function login() {
-    let user = document.getElementById('username').value;
+    let user = document.getElementById('username').value.toLowerCase(); // convert to lowercase
     let pass = document.getElementById('password').value;
 
     if(user === "student" && pass === "1234") {
