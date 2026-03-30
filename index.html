@@ -151,55 +151,73 @@ button:hover { background:darkorange; }
 </div>
 
 <script>
-// CHECK LOGIN STATE ON LOAD
-// window.onload = function() {
-//     if(localStorage.getItem("loggedIn") === "true") {
-//         showApp();
-//     }
-// };
-// Make Enter key trigger login
-document.getElementById('username').addEventListener('keydown', function(event) {
-    if(event.key === 'Enter') {
-        login(); // call your login function
+// CHECK LOGIN STATUS ON PAGE LOAD
+window.onload = function() {
+    if(sessionStorage.getItem("loggedIn") === "true") {
+        showApp();
     }
-});
-
-document.getElementById('password').addEventListener('keydown', function(event) {
-    if(event.key === 'Enter') {
-        login(); // call your login function
-    }
-});
+}
 
 // LOGIN FUNCTION
 function login() {
-    let user = document.getElementById('username').value.toLowerCase(); // convert to lowercase
+    let user = document.getElementById('username').value;
     let pass = document.getElementById('password').value;
 
     if(user === "student" && pass === "1234") {
-        localStorage.setItem("loggedIn", "true"); // SAVE LOGIN
+        sessionStorage.setItem("loggedIn", "true"); // SAVE SESSION
         showApp();
     } else {
         alert("Invalid login");
     }
 }
 
-// SHOW APP FUNCTION
+// SHOW MAIN APP
 function showApp() {
     document.getElementById('loginPage').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
+    loadJobs();
 }
 
-// SIGN OUT FUNCTION
+// LOGOUT FUNCTION (optional but recommended)
 function logout() {
-    localStorage.removeItem("loggedIn"); // CLEAR LOGIN
-    document.getElementById('app').classList.add('hidden');
-    document.getElementById('loginPage').classList.remove('hidden');
+    sessionStorage.removeItem("loggedIn");
+    location.reload();
 }
 
 // TOGGLE MENU
 function toggleMenu(id) {
     let menu = document.getElementById(id);
     menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+// GOOGLE SHEETS INTEGRATION
+const sheetURL = "https://docs.google.com/spreadsheets/d/1RRy9Oa1zmo2o1uK8ppFzDlxQTfOH_kkdX2yotbLvdRk/edit?usp=sharing";
+
+async function loadJobs() {
+    try {
+        let res = await fetch(sheetURL);
+        let data = await res.json();
+
+        data.forEach(job => {
+            let link = document.createElement('a');
+            link.href = job.Link;
+            link.textContent = job.Title;
+            link.target = "_blank";
+
+            if(job.Category === "Electrician") {
+                document.getElementById('electrician').appendChild(link);
+            }
+            else if(job.Category === "Carpentry") {
+                document.getElementById('carpentry').appendChild(link);
+            }
+            else if(job.Category === "HVAC") {
+                document.getElementById('hvac').appendChild(link);
+            }
+        });
+
+    } catch(err) {
+        console.log(err);
+    }
 }
 </script>
 
