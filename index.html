@@ -151,20 +151,22 @@ button:hover { background:darkorange; }
 </div>
 
 <script>
-// CHECK LOGIN STATUS ON PAGE LOAD
-window.onload = function() {
-    if(sessionStorage.getItem("loggedIn") === "true") {
-        showApp();
+// RUN IMMEDIATELY (not just window.onload)
+document.addEventListener("DOMContentLoaded", function() {
+    const isLoggedIn = localStorage.getItem("loggedIn");
+
+    if (isLoggedIn === "true") {
+        showApp(); // restore session on refresh
     }
-}
+});
 
 // LOGIN FUNCTION
 function login() {
-    let user = document.getElementById('username').value.toLowerCase(); // convert to lowercase
+    let user = document.getElementById('username').value;
     let pass = document.getElementById('password').value;
 
-    if(user === "student" && pass === "1234") {
-        localStorage.setItem("loggedIn", "true"); // SAVE LOGIN
+    if(user.toLowerCase() === "student" && pass === "1234") {
+        localStorage.setItem("loggedIn", "true");
         showApp();
     } else {
         alert("Invalid login");
@@ -173,14 +175,19 @@ function login() {
 
 // SHOW MAIN APP
 function showApp() {
-    document.getElementById('loginPage').classList.add('hidden');
-    document.getElementById('app').classList.remove('hidden');
-    loadJobs();
+    document.getElementById('loginPage').style.display = "none";
+    document.getElementById('app').style.display = "block";
+
+    // Prevent duplicate loading
+    if (!window.jobsLoaded) {
+        loadJobs();
+        window.jobsLoaded = true;
+    }
 }
 
-// LOGOUT FUNCTION (optional but recommended)
+// LOGOUT
 function logout() {
-    sessionStorage.removeItem("loggedIn");
+    localStorage.removeItem("loggedIn");
     location.reload();
 }
 
@@ -190,7 +197,7 @@ function toggleMenu(id) {
     menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 }
 
-// GOOGLE SHEETS INTEGRATION
+// GOOGLE SHEETS (still placeholder)
 const sheetURL = "https://docs.google.com/spreadsheets/d/1RRy9Oa1zmo2o1uK8ppFzDlxQTfOH_kkdX2yotbLvdRk/edit?usp=sharing";
 
 async function loadJobs() {
