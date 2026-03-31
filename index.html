@@ -160,11 +160,11 @@ window.onload = function() {
 
 // LOGIN FUNCTION
 function login() {
-    let user = document.getElementById('username').value;
+    let user = document.getElementById('username').value.toLowerCase(); // convert to lowercase
     let pass = document.getElementById('password').value;
 
     if(user === "student" && pass === "1234") {
-        sessionStorage.setItem("loggedIn", "true"); // SAVE SESSION
+        localStorage.setItem("loggedIn", "true"); // SAVE LOGIN
         showApp();
     } else {
         alert("Invalid login");
