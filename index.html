@@ -6,6 +6,92 @@
 <title>EDDR Job Portal</title>
 <button onclick="logout()" style="width:150px; float:right; background:red;">Sign Out</button>
 <style>
+    /* =========================
+   MOBILE RESPONSIVE DESIGN
+========================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .login-box {
+        width: 90%;
+        margin: 60px auto;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .main-btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .sub-menu a {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+
+/* Phones */
+@media (max-width: 480px) {
+
+    body {
+        height: auto;
+    }
+
+    .overlay {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .login-box {
+        width: 95%;
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .main-btn {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .sub-menu a {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    /* FIX SIGN OUT BUTTON ON MOBILE */
+    button[onclick="logout()"] {
+        width: 100%;
+        float: none;
+        margin-bottom: 10px;
+    }
+}
 * { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
 
 body {
@@ -76,20 +162,11 @@ button:hover { background:darkorange; }
     text-decoration:none;
     border-radius:5px;
 }
-    /* FIX SIGN OUT BUTTON ON MOBILE */
-    button[onclick="logout()"] {
-        width: 100%;
-        float: none;
-        margin-bottom: 10px;
-    }
-
 </style>
 </head>
 
 <body>
-    <button onclick="logout()" style="width:150px; float:right; background:red;">
-    Sign Out
-    </button>
+
 <div class="overlay">
 
 <!-- LOGIN PAGE -->
