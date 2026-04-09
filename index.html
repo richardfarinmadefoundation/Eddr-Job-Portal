@@ -76,10 +76,20 @@ button:hover { background:darkorange; }
     text-decoration:none;
     border-radius:5px;
 }
+    /* FIX SIGN OUT BUTTON ON MOBILE */
+    button[onclick="logout()"] {
+        width: 100%;
+        float: none;
+        margin-bottom: 10px;
+    }
+
 </style>
 </head>
 
 <body>
+    <button onclick="logout()" style="width:150px; float:right; background:red;">
+    Sign Out
+    </button>
 <div class="overlay">
 
 <!-- LOGIN PAGE -->
